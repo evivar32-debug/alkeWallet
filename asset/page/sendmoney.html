@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Alka-Wallet Enviar Dinero</title>
+    <!-- Insertar CDN para Boostrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <!-- insertar CSS con mis estilos -->
+    <link href="/asset/css/myStyle.css" rel="stylesheet">
+
+</head>
+
+<body>
+    <!-- NavBar -->
+    <div id="navBar" class="container-fluid mb-3 py-2">
+        <ul class="nav nav-underline">
+            <li class="nav-item">
+                <a class="nav-link link-light" aria-current="page" href="menu.html">Menu Principal</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link link-light" href="deposit.html">Depositar</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link active" href="sendmoney.html">Transferencia</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link link-light" href="transactions.html">Historial</a>
+            </li>
+        </ul>
+    </div>
+
+    <h2 class="container texto-blanco">Enviar Dinero</h2>
+
+    <!-- Acordeon para agregar nuevo contacto -->
+    <div class="container mb-3">
+        <div class="accordion w-100" id="accordionFlushExample">
+            <div class="accordion-item">
+                <h2 class="accordion-header">
+                    <button class="accordion-button collapsed text-bg-success" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
+                        Agregar nuevo contacto
+                    </button>
+                </h2>
+                <div id="flush-collapseOne" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
+                    <div class="accordion-body">
+                        <!-- Form de contacto nuevo -->
+                        <form id="formAgregarContacto" name="formAgregarContacto" onsubmit="addContact();">
+
+                            <div class="mb-3">
+                                <label for="nuevoNombre" class="form-label">Nombre del Titular</label>
+                                <input type="text" class="form-control" id="nuevoNombre" name="nuevoNombre"
+                                    placeholder="Ej: Ana Pérez" required>
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="nuevoBanco" class="form-label">Banco</label>
+                                <select class="form-select" id="nuevoBanco" name="nuevoBanco" required>
+                                    <option selected disabled value="">Selecciona una opción...</option>
+                                    <option value="Banco Estado">Banco Estado</option>
+                                    <option value="Banco Santander">Banco Santander</option>
+                                    <option value="Banco de Chile">Banco de Chile</option>
+                                    <option value="MercadoPago">MercadoPago</option>
+                                    <option value="Banco BCI">Banco BCI</option>
+                                    <option value="Banco Falabella">Banco Falabella</option>
+                                    <option value="Otro">Otro</option>
+                                </select>
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="nuevaCuenta" class="form-label">Número de Cuenta</label>
+                                <input type="number" step="1" oninput="if(this.value < 0) this.value = 0;"
+                                    class="form-control" id="nuevaCuenta" name="nuevaCuenta" placeholder="Ej: 12345678"
+                                    required>
+                            </div>
+
+                            <div class="d-grid">
+                                <button type="submit" class="btn btn-success">Agregar Contacto</button>
+                            </div>
+
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Lista de conctactos -->
+    <div class="container">
+        <p class="texto-blanco">Lista de contactos:</p>
+
+        <div class="row mb-4">
+            <div class="col-md-6 offset-md-3">
+                <div class="input-group">
+                    <span class="input-group-text bg-success text-white">🔍</span>
+                    <input type="text" id="buscador" class="form-control" placeholder="Buscar por nombre o banco...">
+                </div>
+            </div>
+        </div>
+
+        <div class="row row-cols-1" id="listaContactos">
+            <!-- Aqui se insertan los contactos dinamicamente -->
+        </div>
+    </div>
+
+
+    <!-- Modal para transferencia -->
+    <div class="modal fade" id="modalTransferencia" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Enviar Dinero</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="formTransferencia" name="formTransferencia" onsubmit="sendMoney(); return false;">
+                        <div class="mb-3">
+                            <label class="form-label">Destinatario</label>
+                            <input type="text" class="form-control" id="inputDestinatario" name="inputDestinatario"
+                                readonly>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Monto a enviar ($)</label>
+                            <input type="number" step="1" oninput="if(this.value < 0) this.value = 0;"
+                                class="form-control" id="inputMonto" name="inputMonto" placeholder="0" required
+                                min="1000">
+                        </div>
+                        <button type="submit" class="btn btn-success w-100">Confirmar Envío</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+    <!-- Insertar CDN para Boostrap -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
+        crossorigin="anonymous"></script>
+
+    <!-- Insertar mi Script js -->
+    <script src="/asset/js/myScript.js"></script>
+
+
+
+    <!-- Scripts de la pagina -->
+    <script>
+        // Inicializar modal y elementos del formulario
+        const elModal = new bootstrap.Modal(document.getElementById('modalTransferencia'));
+        const inputDestinatario = document.getElementById('inputDestinatario');
+        const formTransferencia = document.getElementById('formTransferencia');
+        const getContactos = JSON.parse(localStorage.getItem("contactos"));
+        generateContacts(getContactos); // Crear lista de contactos dinamicamente
+
+        formTransferencia.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const monto = document.getElementById('inputMonto').value;
+            const destinatario = inputDestinatario.value;
+        });
+
+        // Filtrar contactos en la lista
+        const inputBuscador = document.getElementById('buscador');
+
+        // Escuchamos cuando el usuario escribe
+        inputBuscador.addEventListener('input', () => {
+            const termino = inputBuscador.value.toLowerCase().trim(); // Convertimos a minúsculas para comparar fácil
+
+            // Filtramos el array original
+            if (termino.length >= 3) { // Solo si el término tiene 3 o más caracteres
+                const getContacto = JSON.parse(localStorage.getItem("contactos"));
+                const contactosFiltrados = getContacto.filter(([nombre, banco]) => {
+                    return nombre.toLowerCase().includes(termino) ||
+                        banco.toLowerCase().includes(termino);
+                });
+
+                // Volvemos a renderizar las tarjetas con el nuevo array filtrado
+                generateContacts(contactosFiltrados);
+            } else {
+                // Si el término tiene menos de 3 caracteres, mostramos todos los contactos
+                const getContacto = JSON.parse(localStorage.getItem("contactos"));
+                generateContacts(getContacto);
+            }
+        });
+    </script>
+
+</body>
+
+</html>
