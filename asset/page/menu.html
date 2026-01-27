@@ -2,59 +2,92 @@
 <html lang="en">
 
 <head>
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Alka-Wallet Login</title>
-    <!-- Insertar CDN para Boostrap -->
+
+    <!-- Codigos necesarios para Boostrap -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+
     <!-- insertar CSS con mis estilos -->
     <link href="/asset/css/myStyle.css" rel="stylesheet">
+
+    <!-- Agregar Font de Google -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Electrolize&display=swap" rel="stylesheet">
+
+    <!-- Agregar icono -->
+    <link rel="icon" type="image/x-icon" href="/asset/img/icon.png">
 
 </head>
 
 <body>
 
+    <!-- Agregar logo -->
+    <div class="position-absolute top-0 end-0 p-2" style="z-index: 1050;">
+        <img src="/asset/img/logo2.png" class="img-fluid" style="width: 100px;" alt="Logo">
+    </div>
+
     <!-- NavBar -->
     <div id="navBar" class="container-fluid mb-3 py-2">
         <ul class="nav nav-underline">
             <li class="nav-item">
-                <a class="nav-link active" aria-current="page" href="menu.html">Menu Principal</a>
+                <a class="nav-link electrolize-regular active" aria-current="page" href="menu.html">Menu Principal</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link link-light" href="deposit.html">Depositar</a>
+                <a class="nav-link electrolize-regular link-light" href="deposit.html">Depositar</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link link-light" href="sendmoney.html">Transferencia</a>
+                <a class="nav-link electrolize-regular link-light" href="sendmoney.html">Transferencia</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link link-light" href="transactions.html">Historial</a>
+                <a class="nav-link electrolize-regular link-light" href="transactions.html">Historial</a>
             </li>
         </ul>
     </div>
 
-
     <div class="container">
-        <h1 class="texto-blanco">Bienvenido "usuario"</h1>
-        <h2 class="texto-blanco">Saldo disponible:</h2>
-        <h3 id="miSaldo" class="texto-blanco"></h3>
+        <h1 class="electrolize-regular">Bienvenido "usuario"</h1>
+        <h3 id="miSaldo" class="electrolize-regular"></h3>
+        <script>
+            document.getElementById("miSaldo").innerHTML = "Saldo disponible: $" + $saldo; 
+        </script>
+
+        <!-- Widget por TradingView -->
+        <div class="mb-4">
+            <script type="module" src="https://widgets.tradingview-widget.com/w/es/tv-market-summary.js"></script>
+            <tv-market-summary exchange="BCS" direction="horizontal" theme="dark" transparent></tv-market-summary>
+        </div>
+
+        <!-- Botones de navegación -->
         <div class="d-grid gap-2">
-            <a href="deposit.html" class="btn btn-outline-success texto-blanco">Depositar</a>
-            <a href="sendmoney.html" class="btn btn-outline-success texto-blanco">Enviar Dinero</a>
-            <a href="transactions.html" class="btn btn-outline-success texto-blanco">Últimos Movimientos</a>
-            <!-- mover este boton despues -->
-            <a href="/index.html" class="btn btn-primary">Cerrar sesión</a>
-
-            <!-- prueba saldo -->
-            <button onclick="pruebaSaldo()">Probar Saldo en Consola</button>
+            <a href="deposit.html" class="btn btn-outline-success electrolize-regular">Depositar</a>
+            <a href="sendmoney.html" class="btn btn-outline-success electrolize-regular">Enviar Dinero</a>
+            <a href="transactions.html" class="btn btn-outline-success electrolize-regular">Últimos Movimientos</a>
         </div>
-
-                    <!-- prueba reset saldo -->
-            <button onclick="resetSaldo()">reset saldo</button>
-        </div>
-
-
     </div>
+
+    <!-- boton cerrar sesión -->
+    <div class="position-relative">
+        <div class="position-fixed bottom-0 end-0">
+            <a href="/index.html" class="btn btn-danger electrolize-regular d-inline-flex p-2 m-2">Cerrar
+                sesión</a>
+        </div>
+    </div>
+
+    <!-- ------------Debug--------------- -->
+
+    <!-- prueba saldo -->
+    <!-- <button onclick="pruebaSaldo()">Probar Saldo en Consola</button> -->
+    <!-- </div> -->
+
+    <!-- prueba reset saldo -->
+    <!-- <button onclick="resetSaldo()">reset saldo</button> -->
+
+    <!-- ----------------------Zona de Scripts---------------- -->
 
     <!-- Insertar CDN para Boostrap -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
@@ -64,9 +97,11 @@
     <!-- Insertar mi Script js -->
     <script src="/asset/js/myScript.js"></script>
 
+    <!-- Scripts de la pagina -->
     <script>
-        document.getElementById("miSaldo").innerHTML = "$" + $saldo; 
+        document.getElementById("miSaldo").innerHTML = "Saldo disponible: $" + $saldo; 
     </script>
+
 </body>
 
 </html>

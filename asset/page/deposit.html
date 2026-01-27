@@ -2,63 +2,87 @@
 <html lang="en">
 
 <head>
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Alka-Wallet Depositar Dinero</title>
-    <!-- Insertar CDN para Boostrap -->
+    <title>Alka-Wallet Login</title>
+
+    <!-- Codigos necesarios para Boostrap -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+
     <!-- insertar CSS con mis estilos -->
     <link href="/asset/css/myStyle.css" rel="stylesheet">
+
+    <!-- Agregar Font de Google -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Electrolize&display=swap" rel="stylesheet">
+
+    <!-- Agregar icono -->
+    <link rel="icon" type="image/x-icon" href="/asset/img/icon.png">
 
 </head>
 
 <body>
+
+    <!-- Agregar logo -->
+    <div class="position-absolute top-0 end-0 p-2" style="z-index: 1050;">
+        <img src="/asset/img/logo2.png" class="img-fluid" style="width: 100px;" alt="Logo">
+    </div>
+
     <!-- NavBar -->
     <div id="navBar" class="container-fluid mb-3 py-2">
         <ul class="nav nav-underline">
             <li class="nav-item">
-                <a class="nav-link link-light" aria-current="page" href="menu.html">Menu Principal</a>
+                <a class="nav-link electrolize-regular link-light" aria-current="page" href="menu.html">Menu Principal</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link active" href="deposit.html">Depositar</a>
+                <a class="nav-link electrolize-regular active" href="deposit.html">Depositar</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link link-light" href="sendmoney.html">Transferencia</a>
+                <a class="nav-link electrolize-regular link-light" href="sendmoney.html">Transferencia</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link link-light" href="transactions.html">Historial</a>
+                <a class="nav-link electrolize-regular link-light" href="transactions.html">Historial</a>
             </li>
         </ul>
     </div>
 
-
     <div class="container">
-        <h2 class="texto-blanco">Depositar Dinero</h2>
+        <h2 class="electrolize-regular">Depositar Dinero</h2>
+
         <!-- Form para depositar -->
         <form name="deposit" onsubmit="depositMoney(); return false;">
-            <p class="texto-blanco">Monto a depositar:</p>
+            <p class="electrolize-regular">Monto a depositar:</p>
             <div class="input-group mb-2">
                 <span class="input-group-text">$</span>
                 <div class="form-floating">
-                    <input type="number" step="1" oninput="if(this.value < 0) this.value = 0;" class="form-control" id="monto" name="monto" placeholder="Monto" min="1000" required>
-                    <label for="monto">Cantidad</label>
+                    <input type="number" step="1" oninput="if(this.value < 0) this.value = 0;" class="form-control"
+                        id="monto" name="monto" placeholder="Monto" min="1000" required>
+                    <label class="electrolize-regular" for="monto">Cantidad</label>
                 </div>
             </div>
-            <input id="botDepositar" class="btn btn-success m-3" type="submit" value="Confirmar">
+            <input id="botDepositar" class="btn btn-success m-3 electrolize-regular" type="submit" value="Confirmar">
         </form>
-        <!-- <button type="submit" class="btn btn-success mb-3">Confirmar</button> -->
-
     </div>
 
-    <!-- Insertar CDN para Boostrap -->
+    <!-- boton cerrar sesión -->
+    <div class="position-relative">
+        <div class="position-fixed bottom-0 end-0">
+            <a href="/index.html" class="btn btn-danger electrolize-regular d-inline-flex p-2 m-2">Cerrar
+                sesión</a>
+        </div>
+    </div>
+
+    <!-- Codigos necesarios para Boostrap -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
         crossorigin="anonymous"></script>
-        
+
     <!-- Insertar mi Script js -->
     <script src="/asset/js/myScript.js"></script>
-</body>
+
 </body>
 
 </html>

@@ -2,53 +2,84 @@
 <html lang="en">
 
 <head>
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Alka-Wallet Login</title>
-    <!-- Insertar CDN para Boostrap -->
+
+    <!-- Codigos necesarios para Boostrap -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+
     <!-- insertar CSS con mis estilos -->
-    <link href="/asset/css/myStyle.css" rel="stylesheet">    
+    <link href="/asset/css/myStyle.css" rel="stylesheet">
+
+    <!-- Agregar Font de Google -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Electrolize&display=swap" rel="stylesheet">
+
+    <!-- Agregar icono -->
+    <link rel="icon" type="image/x-icon" href="/asset/img/icon.png">
+
 </head>
 
 <body>
-    <div id="titulo" class="container-fluid">
-        <h1 class="texto-blanco">Inicio de sesion</h1>
+
+    <div id="titulo" class="container-fluid mb-3 ">
+        <div>
+            <h1 class="electrolize-regular p-2">INICIAR SESIÓN</h1>
+        </div>
     </div>
 
-    <div class="position-absolute top-50 start-50 translate-middle"> <!--Posicionar Form en la mitad de la pagina-->
-        <!-- Form por Boostrap para el Login -->
-        <form name="checkLogin" action="asset/page/menu.html" onsubmit="return validateForm()">
-            <div class="form-floating mb-3" style="max-width: 20rem;">
-                <input type="email" class="form-control" id="logUser" name="logUser" placeholder="name@example.com" required>
-                <label for="logUser">Correo</label>
-            </div>
-            <div class="form-floating" style="max-width: 20rem;">
-                <input type="password" class="form-control" id="logPass" name="logPass" placeholder="Password" required>
-                <label for="logPass">Contraseña</label>
-            </div>
-            <!-- boton de login -->
-            <input id="login" class="btn btn-success m-2" type="submit" value="Login">
-            <!-- boton de Reset -->
-            <input id="borrar" class="btn btn-secondary m-2" type="reset" value="Borrar">
-        </form>
+    <!-- Agregar logo -->
+    <div class="position-absolute top-0 end-0 " style="z-index: 1050;">
+        <img src="/asset/img/logo2.png" class="img-fluid" style="width: 150px;" alt="Logo">
     </div>
 
-<!-- prueba menu -->
-  <a href="/asset/page/menu.html" class="btn btn-secondary">Ir al Menú Principal</a>
+    <!-- Form en formato tarjeta para el Login -->
+    <div class="container p-4">
+        <div class="card text-bg-dark mx-auto" style="width: 25rem;">
+            <img src="/asset/img/login.png" class="card-img-top" alt="">
+            <div class="card-body">
+                <form name="checkLogin" action="asset/page/menu.html" onsubmit="return validateForm()">
+                    <div class="form-floating mb-3" style="max-width: 25rem;">
+                        <input type="email" class="form-control" id="logUser" name="logUser"
+                            placeholder="name@example.com" required>
+                        <label for="logUser">Correo</label>
+                    </div>
+                    <div class="form-floating" style="max-width: 25rem;">
+                        <input type="password" class="form-control" id="logPass" name="logPass" placeholder="Password"
+                            required>
+                        <label for="logPass">Contraseña</label>
+                    </div>
+
+                    <!-- boton de login -->
+                    <input id="login" class="btn btn-success m-2 electrolize-regular" type="submit" value="Login">
+
+                    <!-- boton de borrar -->
+                    <input id="borrar" class="btn btn-secondary m-2 electrolize-regular" type="reset" value="Borrar">
+
+                </form>
+            </div>
+        </div>
+    </div>
 
 
+    <!-- --------------Debug------------------- -->
+
+    <!-- Boton para ir a menu directamente sin login -->
+    <!-- <a href="/asset/page/menu.html" class="btn btn-secondary">Ir al Menú Principal</a> -->
 
 
-    <!-- Insertar CDN para Boostrap -->
+    <!-- Codigos necesario para Boostrap -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
-        crossorigin="anonymous">
-    </script>
+        integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous">
+        </script>
 
     <!-- Insertar mi Script js -->
-     <script src="/asset/js/myScript.js"></script>
+    <script src="/asset/js/myScript.js"></script>
+    
 </body>
 
 </html>
