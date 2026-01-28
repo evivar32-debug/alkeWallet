@@ -19,6 +19,11 @@ if (localStorage.getItem("contactos") == null) {
     localStorage.setItem("contactos", JSON.stringify(contactosIniciales));
 }
 
+// obtener historial guardado en localStorage
+if (localStorage.getItem("historial") == null) {
+    let historialInicial = [[]]; // historial vacio
+    localStorage.setItem("historial", JSON.stringify(historialInicial));
+}
 
 // funciones
 
@@ -228,4 +233,8 @@ function resetSaldo() {
 function resetHistorial() {
     let resetHistorial = [[]];
     localStorage.setItem("historial", JSON.stringify(resetHistorial));
+}
+
+function borrarLocalStorage() {
+    localStorage.clear();
 }
