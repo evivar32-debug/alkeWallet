@@ -2,11 +2,6 @@ body {
     background-color: #0d0d0d;
 }
 
-.texto-blanco {
-    color: white;
-    font-family: 'verdana', sans-serif;
-}
-
 .electrolize-regular {
   font-family: "Electrolize", sans-serif;
   font-weight: 400;

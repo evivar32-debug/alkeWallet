@@ -1,4 +1,4 @@
-// variables
+// Variables globales
 
 // obtener saldo guardado en localStorage
 let $saldo = localStorage.getItem("saldo");
@@ -20,47 +20,70 @@ if (localStorage.getItem("contactos") == null) {
 }
 
 
-let monto;
-let tipoTransaccion;
-let fecha;
-let destinatario;
-
 // funciones
 
 // validar formulario de login
 function validateForm() {
-    let user = document.forms["checkLogin"]["logUser"].value;
-    let pass = document.forms["checkLogin"]["logPass"].value;
+    // obtener valores de los campos
+    const user = document.forms["checkLogin"]["logUser"].value;
+    const pass = document.forms["checkLogin"]["logPass"].value;
+
+    // validar usuario y contraseña
     if (user != "admin@python.com" || pass != "admin123") {
         alert("Usuario no registrado");
         return false;
     }
 }
 
-// Agregar contacto
-function addContact() {
-    let nombre = document.forms["formAgregarContacto"]["nuevoNombre"].value;
-    let banco = document.forms["formAgregarContacto"]["nuevoBanco"].value;
-    let cuenta = document.forms["formAgregarContacto"]["nuevaCuenta"].value;
+// Depositar dinero
+function depositMoney() {
+    // obtener monto a depositar
+    monto = parseInt(document.forms["deposit"]["monto"].value);
 
-    let nuevoContacto = [nombre, banco, "Cuenta: " + cuenta];
-    let tablaContactos = JSON.parse(localStorage.getItem("contactos"));
+    // actualizar saldo
+    $saldo = $saldo + monto;
+    newSaldo();
+
+    // agregar al historial
+    tipoTransaccion = "Deposito";
+    destinatario = "Cuenta Propia";
+    addHistory(tipoTransaccion, destinatario, monto);
+
+    // mostrar alerta de confirmacion
+    alert("Has depositado: $" + monto + "\nTu nuevo saldo es: $" + $saldo);
+    return false; // evitar recarga de pagina
+}
+
+// Agregar contacto nuevo
+function addContact() {
+    // obtener valores del formulario
+    const nombre = document.forms["formAgregarContacto"]["nuevoNombre"].value;
+    const banco = document.forms["formAgregarContacto"]["nuevoBanco"].value;
+    const cuenta = document.forms["formAgregarContacto"]["nuevaCuenta"].value;
+
+    // crear nuevo contacto y guardarlo en localStorage
+    const nuevoContacto = [nombre, banco, "Cuenta: " + cuenta];
+    const tablaContactos = JSON.parse(localStorage.getItem("contactos"));
     tablaContactos.push(nuevoContacto);
     localStorage.setItem("contactos", JSON.stringify(tablaContactos));
+
+    // mostrar alerta de confirmacion
     alert("Contacto agregado exitosamente.");
     return false; // evitar recarga de pagina
 }
 
-
 // Generar lista de contactos
 function generateContacts(contactos) {
     const lista = document.getElementById('listaContactos');
-    lista.innerHTML = ""; // IMPORTANTE: Limpiar antes de re-dibujar
+    lista.innerHTML = ""; // Limpiamos el contenedor antes de agregar nuevos contactos
 
+    // Verificar si hay contactos
     if (contactos.length === 0) {
         lista.innerHTML = `<div class="col-12 text-center text-muted">No se encontraron contactos.</div>`;
         return;
     }
+
+    // Recorrer cada contacto y crear su tarjeta
     contactos.forEach(([nombre, banco, cuenta]) => {
         // 1. Crear el contenedor principal de la tarjeta
         const card = document.createElement('div');
@@ -102,10 +125,11 @@ function generateContacts(contactos) {
         card.appendChild(header);
         card.appendChild(body);
 
-        // BUSCAMOS EL BOTÓN dentro de la tarjeta recién creada
+        // Asignar evento de transferencia al botón
+        // Buscamos el botón dentro de la tarjeta recién creada
         const btnEnv = card.querySelector('.btn-enviar-dinero');
 
-        // ASIGNAMOS EL EVENTO
+        // Asignamos el evento 
         btnEnv.addEventListener('click', () => {
             // 1. Ponemos el nombre del contacto en el input "readonly"
             inputDestinatario.value = nombre;
@@ -121,39 +145,37 @@ function generateContacts(contactos) {
 }
 
 
-// Depositar dinero
-function depositMoney() {
-    monto = parseInt(document.forms["deposit"]["monto"].value);
-    $saldo = $saldo + monto;
-    newSaldo();
-    tipoTransaccion = "Deposito";
-    destinatario = "Cuenta Propia";
-    addHistory(tipoTransaccion, destinatario, monto);
-    alert("Has depositado: $" + monto + "\nTu nuevo saldo es: $" + $saldo);
-    return false; // evitar recarga de pagina
-}
-
 // Transferir dinero
 function sendMoney() {
+    // obtener valores del formulario
     destinatario = document.forms["formTransferencia"]["inputDestinatario"].value;
     monto = parseInt(document.forms["formTransferencia"]["inputMonto"].value);
+
+    // validar saldo suficiente
     if (monto > $saldo) {
         alert("Saldo insuficiente para realizar la transferencia.");
         return false; // evitar recarga de pagina
     } else {
+        // actualizar saldo
         $saldo = $saldo - monto;
         newSaldo();
+
+        // agregar al historial
         tipoTransaccion = "Transferencia";
         addHistory(tipoTransaccion, destinatario, monto);
+
+        // mostrar alerta de confirmacion
         alert("Has transferido: $" + monto + " a " + destinatario + "\nTu nuevo saldo es: $" + $saldo);
+
         // Cerrar el modal manualmente
         elModal.hide();
         return false; // evitar recarga de pagina
     }
 }
 
-// Obtener fecha y hora actual
+// Obtener fecha y hora para el historial
 function getFechaHora() {
+    // Obtener la fecha y hora actual
     const ahora = new Date();
 
     // Extraemos los componentes
@@ -168,28 +190,29 @@ function getFechaHora() {
     // Construimos la cadena con el formato solicitado
     // Formato sugerido: HH:mm:ss - DD/MM/YYYY
     const fechaFinal = `${horas}:${minutos}:${segundos} - ${dia}/${mes}/${anio}`;
-    fecha = fechaFinal.toString();
+    const fecha = fechaFinal.toString();
     return fecha;
 }
 
 // Agregar al historial de transacciones
 function addHistory() {
-    // agregar luego
-    fecha = getFechaHora();
-    // newHistorial = [fecha, tipoTransaccion, destinatario, monto];
-    let newHistorial = [fecha, tipoTransaccion, destinatario, "$" + monto];
-    let newTablaHistorial = JSON.parse(localStorage.getItem("historial"));
+    // obtener fecha y hora con formato HH:mm:ss - DD/MM/YYYY
+    const fecha = getFechaHora();
+
+    // crear nuevo registro y guardarlo en localStorage
+    const newHistorial = [fecha, tipoTransaccion, destinatario, "$" + monto];
+    const newTablaHistorial = JSON.parse(localStorage.getItem("historial"));
     newTablaHistorial.unshift(newHistorial); // agregar al inicio del array con unshift
     localStorage.setItem("historial", JSON.stringify(newTablaHistorial));
 }
 
-// guardar nuevo saldo 
+// guardar nuevo saldo en localStorage
 function newSaldo() {
     localStorage.setItem("saldo", $saldo);
 }
 
 
-// pruebas (debugging)
+// ------------- funciones de prueba y depuracion -------------
 function pruebaSaldo() {
     $saldo = $saldo + 100000;
     newSaldo();
