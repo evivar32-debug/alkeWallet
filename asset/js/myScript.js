@@ -59,6 +59,31 @@ function depositMoney() {
     return false; // evitar recarga de pagina
 }
 
+// Retirar dinero
+function withdrawMoney() {
+    // obtener monto a retirar
+    monto = parseInt(document.forms["withdraw"]["monto"].value);
+
+    // validar saldo suficiente
+    if (monto > $saldo) {
+        alert("Saldo insuficiente para realizar el retiro.");
+        return false; // evitar recarga de pagina
+    } else {
+        // actualizar saldo
+        $saldo = $saldo - monto;
+        newSaldo();
+
+        // agregar al historial
+        tipoTransaccion = "Retiro";
+        destinatario = "Cuenta Propia";
+        addHistory(tipoTransaccion, destinatario, monto);
+
+        // mostrar alerta de confirmacion
+        alert("Has retirado: $" + monto + "\nTu nuevo saldo es: $" + $saldo);
+        return false; // evitar recarga de pagina
+    }
+}
+
 // Agregar contacto nuevo
 function addContact() {
     // obtener valores del formulario
