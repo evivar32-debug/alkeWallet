@@ -42,24 +42,21 @@
         <div class="card text-bg-dark mx-auto" style="width: 25rem;">
             <img src="/asset/img/login.png" class="card-img-top" alt="">
             <div class="card-body">
-                <form name="checkLogin" action="asset/page/menu.html" onsubmit="return validateForm()">
+                <form id="loginForm" name="checkLogin">
                     <div class="form-floating mb-3" style="max-width: 25rem;">
-                        <input type="email" class="form-control" id="logUser" name="logUser"
+                        <input type="email" class="form-control" id="logUser" name="email"
                             placeholder="name@example.com" required>
                         <label for="logUser">Correo</label>
                     </div>
                     <div class="form-floating" style="max-width: 25rem;">
-                        <input type="password" class="form-control" id="logPass" name="logPass" placeholder="Password"
+                        <input type="password" class="form-control" id="logPass" name="password" placeholder="Password"
                             required>
                         <label for="logPass">Contraseña</label>
                     </div>
 
-                    <!-- boton de login -->
-                    <input id="login" class="btn btn-success m-2 electrolize-regular" type="submit" value="Login">
-
-                    <!-- boton de borrar -->
-                    <input id="borrar" class="btn btn-secondary m-2 electrolize-regular" type="reset" value="Borrar">
-
+                    <input id="login" class="btn btn-success m-2" type="submit" value="Login">
+                    <input id="borrar" class="btn btn-secondary m-2" type="reset" value="Borrar">
+                    
                 </form>
             </div>
         </div>
@@ -82,7 +79,7 @@
 
     <!-- Insertar mi Script js -->
     <script src="/asset/js/myScript.js"></script>
-    
+
 </body>
 
 </html>
