@@ -50,7 +50,7 @@
     </div>
 
     <div class="container">
-        <h1 class="electrolize-regular">Bienvenido "usuario"</h1>
+        <div class="electrolize-regular" id="userWelcome"></div>
         <h3 id="miSaldo" class="electrolize-regular"></h3>
         <script>
             document.getElementById("miSaldo").innerHTML = "Saldo disponible: $" + $saldo; 
@@ -100,6 +100,8 @@
     <!-- Scripts de la pagina -->
     <script>
         document.getElementById("miSaldo").innerHTML = "Saldo disponible: $" + $saldo; 
+        const user = JSON.parse(localStorage.getItem("user"));
+        document.getElementById("userWelcome").innerHTML = '<h1 class="electrolize-regular">Bienvenido ' + user.nombres + " " + user.apellidos + '</h1>';
     </script>
 
 </body>
